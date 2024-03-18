@@ -2,13 +2,19 @@
 Our project goal is to create a userfriendly website that helps user to organize food in their fridge. Also, recommend food recipe according to their previous choice.
 
 ## Front-end 
-## Back-end
 
-## Database 
-The database creation code is stored in : `./Database`
-Our project using postgres SQL database. Currently, the database consists of three schemas: users, fridges, and ingredients 
-- `sequence.sql`: sequence creation code
-- `tables.sql`: table initilization code 
+## Back-end
+Our project uses Java SpringBoot framework for its compatibility with the RESTful API. All the backend codes are stored in: `./Backend` 
+
+- `./Backend/java`: Backend Java Code
+  -  `./Backend/java/FridgeEndApplication.java`: Main function to run the whole application backend 
+  -  `./Backend/java/controller`: 
+  -  `./Backend/java/domain` : Define the structure of four entities: Users, Fridges, Ingredients, and Recipes
+  -  `./Backend/java/repository` (To do): Define Data Access Operations
+  -  `./Backend/java/service`:
+  
+- `./Backend/resources`: Recources for the backend
+  -   
 
 ## Scraping
 The scraping code is stored in: `./Scraping`
