@@ -23,6 +23,15 @@ Currently, our project used  `https://www.food.com/` to get the recipe informati
 - `recipe.py`: Defines the data structure of the `Recipe` object.
 - `file_storage.py`: Serializes the scraped data into a pickle object, which will later be imported into a PostgreSQL database.
 
+Currently, our project uses `https://foodb.ca/` to get ingredient information.
+- `config.ini`: Configuration for scraping, including base URL, page range, and output file.
+
+- `ingredient_scraper.py`: Web scraping logic to fetch and parse ingredient details from web pages, utilizing `requests` and `BeautifulSoup`.
+
+- `ingredient.py`: Data structure for `Ingredient` objects, detailing name, scientific name, food group, food subgroup, and image URL.
+
+- `file_storage.py`: File management for serializing and deserializing `Ingredient` objects to/from a pickle file for persistent data storage.
+
 ## Database
 - `fridge_app.sql`: Keep track of the current database sturcture and data inside
 - `Scrapping Results`: Save pickle file of the scarp results 
