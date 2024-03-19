@@ -19,6 +19,12 @@ const navigateToManualPage = () => {
   });
 }
 
+const navigateToCreator = () => {
+  router.push({
+    path: '/creator_recipe'
+  });
+}
+
 const navigateToCameraPage = () => {
   alert("In program development...");
 }
@@ -30,6 +36,7 @@ const navigateToCameraPage = () => {
     <div class="flex-row self-stretch group">
       <div class="flex-col justify-start items-center text-wrapper"><span class="font text_2">Fridge</span></div>
       <div class="flex-col justify-start text-wrapper_2 ml-11"><span class="font text_3">Recommendation</span></div>
+      <div class="flex-col justify-start text-wrapper_2 ml-11" @click="navigateToCreator"><span class="font text_3">Creator</span></div>
     </div>
     <div class="grid">
       <div class="flex-col grid-item">
