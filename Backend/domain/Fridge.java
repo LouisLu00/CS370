@@ -1,5 +1,7 @@
 package com.end.fridge.domain;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,8 +12,35 @@ import lombok.Data;
 @Table(name = "fridge")
 public class Fridge {
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Fridge() {}
+    @NotNull(message = "uid cannot be null")
+    private Long uid; // user ID
+    private Long iid; // ingredient ID
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "iid", referencedColumnName = "id", insertable = false, updatable = false) // define the foreign
+                                                                                                  // key
+    private Ingredient ingredient;
+
+    @NotNull(message = "quantity cannot be null")
+    @Positive(message = "quantity must be positive")
+    private Integer quantity; // quantify of a specific ingredient
+
+    // otherName and Img is used for the ingredients that are not in the current
+    // ingredients database
+    private String otherName;
+    private String otherImg;
+
+    @NotNull(message = "expirationDate cannot be null")
+    private LocalDateTime expirationDate;
+
+    @AssertTrue(message = "either iId or other_name must be provided")
+    private boolean isEitherIIdOrOtherNameProvided() {
+        return (iid != null || otherName != null) && !(iid != null && otherName != null);
+    }
+
+    public Fridge() {
+    }
 }
