@@ -14,7 +14,8 @@ public class RecipeController {
     private RecipeService recipeService;
 
     @GetMapping("/list")
-    public Iterable<Recipe> list() {
-        return recipeService.list();
+    public ResponseEntity<?> list() {
+        Iterable<Recipe> recipes = recipeService.list();
+        return ResponseEntity.ok(recipes);
     }
 }

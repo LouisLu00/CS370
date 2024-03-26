@@ -13,9 +13,22 @@ public class IngredientController {
     @Autowired
     private IngredientService ingredientService;
 
+    // Get a list of ingredients
     @GetMapping("/list")
-    public Iterable<Ingredient> list() {
+    public ResponseEntity<?> list() {
+        Iterable<Ingredient> ingredients = ingredientService.list();
+        return ResponseEntity.ok(ingredients);
+    }
 
-        return ingredientService.list();
+    // Search the ingredient by keyword
+    @GetMapping("/search/{keyword}")
+    public ResponseEntity<?> search(@PathVariable String keyword) {
+        // Make sure there's only one keyword input
+        if (keyword.length() < 2) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Too few characters entered");
+        }
+
+        Iterable<Ingredient> result = ingredientService.findByNameContaining(keyword);
+        return ResponseEntity.ok(result);
     }
 }
