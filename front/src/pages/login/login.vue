@@ -81,8 +81,8 @@
   }
   .text_4 {
     margin-top: 2.06rem;
-    font-size: 0.94rem;
-    line-height: 0.94rem;
+    font-size: 0.88rem;
+    line-height: 0.88rem;
   }
   .text-wrapper_3 {
     margin-top: 1.81rem;
@@ -92,9 +92,9 @@
   }
   .text_5 {
     color: rgb(255, 255, 255);
-    font-size: 1.25rem;
+    font-size: 0.88rem;
     font-family: 'Heiti SC';
     font-weight: 700;
-    line-height: 1.25rem;
+    line-height: 0.88rem;
   }
 </style>

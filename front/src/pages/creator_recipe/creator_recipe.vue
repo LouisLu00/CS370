@@ -4,10 +4,10 @@
 
   const props = defineProps({});
   const router = useRouter();
-  const image = [
-          '/src/pages/creator_recipe/picture/createpic3.png',
-          '/src/pages/creator_recipe/picture/createpic2.png',
-          '/src/pages/creator_recipe/picture/createpic1.png'
+  const imageUrls = [
+          'https://th.bing.com/th/id/OIP.vpiU6CQtwRufjszmOkDvMgHaFP?w=186&h=132&c=7&r=0&o=5&cb=11&dpr=2&pid=1.7',
+          'https://th.bing.com/th/id/OIP.FsUdSSNWDjUM0bAYeHMPAwHaGO?w=186&h=157&c=7&r=0&o=5&cb=11&dpr=2&pid=1.7',
+          'https://th.bing.com/th/id/OIP.Vg9r-DAlb6FFY5DzS6MMcAHaFp?w=186&h=142&c=7&r=0&o=5&cb=11&dpr=2&pid=1.7'
         ]
   const num_1 = ref('');
   const num_2 = ref('');
@@ -21,37 +21,36 @@
     <span class="self-start text">Recipe creator</span>
     <div class="self-stretch section">
       <el-carousel height="11.5rem" motion-blur>
-        <el-carousel-item v-for="(imageUrl, index) in image" :key="index" :autoplay="true">
-            <img :src="imageUrl" alt="carousel-image" class="image-fit">
+        <el-carousel-item v-for="(imageUrl, index) in imageUrls" :key="index" :autoplay="true">
+          <img :src="imageUrl" alt="carousel-image">
         </el-carousel-item>
-
       </el-carousel>
     </div>
     <div class="flex-col self-stretch group">
       <div class="flex-row input view">
         <span class="font text_2">Fish</span>
         <div style="margin: auto;"></div>
-        <el-input-number style="align-items: center; margin-right: 0.3rem;" v-model="num_1" :min="0" :max="10"/>
+        <el-input-number style="align-items: center; margin-right: 0.3rem;" v-model="num_1" :min="1" :max="10"/>
       </div>
       <div class="flex-row input text-wrapper_2 mt-7">
         <span class="font text_2">Strawberry</span>
         <div style="margin: auto;"></div>
-        <el-input-number style="align-items: center; margin-right: 0.3rem;" v-model="num_2" :min="0" :max="10"/>
+        <el-input-number style="align-items: center; margin-right: 0.3rem;" v-model="num_2" :min="1" :max="10"/>
       </div>
       <div class="flex-row justify-start input text-wrapper_1 mt-7">
         <span class="font text_2">Potato</span>
         <div style="margin: auto;"></div>
-        <el-input-number style="align-items: center; margin-right: 0.3rem;" v-model="num_3" :min="0" :max="10"/>
+        <el-input-number style="align-items: center; margin-right: 0.3rem;" v-model="num_3" :min="1" :max="10"/>
       </div>
       <div class="flex-row justify-start input text-wrapper_3 mt-7">
         <span class="font text_2">Drumstick</span>
         <div style="margin: auto;"></div>
-        <el-input-number style="align-items: center; margin-right: 0.3rem;" v-model="num_4" :min="0" :max="10"/>
+        <el-input-number style="align-items: center; margin-right: 0.3rem;" v-model="num_4" :min="1" :max="10"/>
       </div>
       <div class="flex-row justify-start input text-wrapper_5 mt-7">
         <span class="font text_2">Milk</span>
         <div style="margin: auto;"></div>
-        <el-input-number style="align-items: center; margin-right: 0.3rem;" v-model="num_5" :min="0" :max="10"/>
+        <el-input-number style="align-items: center; margin-right: 0.3rem;" v-model="num_5" :min="1" :max="10"/>
       </div>
     </div>
     <div class="flex-col justify-start items-center self-center text-wrapper_4"><span class="text_3">Find</span></div>
@@ -160,11 +159,4 @@
   .el-carousel__item:nth-child(2n + 1) {
     background-color: #d3dce6;
   }
-
-  .image-fit {
-  width: 100%; 
-  height: 100%; 
-  object-fit: cover; 
-}
-
 </style>
