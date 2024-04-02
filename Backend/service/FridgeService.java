@@ -31,4 +31,18 @@ public class FridgeService {
             return fridgeRepository.save(fridge);
         }
     }
+
+    public Fridge updateItemQuantity(Long id, Integer quantity) {
+        Optional<Fridge> fridgeOptional = fridgeRepository.findById(id);
+        if (!fridgeOptional.isPresent()) {
+            throw new RuntimeException("Fridge item not found");
+        }
+        Fridge fridge = fridgeOptional.get();
+        fridge.setQuantity(quantity);
+        return fridgeRepository.save(fridge);
+    }
+
+    public void delete(Long id) {
+        fridgeRepository.deleteById(id);
+    }
 }

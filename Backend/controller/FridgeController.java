@@ -4,8 +4,11 @@ import com.end.fridge.domain.Fridge;
 import com.end.fridge.service.FridgeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/fridge")
@@ -24,5 +27,28 @@ public class FridgeController {
     public ResponseEntity<?> save(@RequestBody @Valid Fridge fridge) {
         Fridge savedFridge = fridgeService.save(fridge);
         return ResponseEntity.ok(savedFridge);
+    }
+
+    @CrossOrigin
+    @PostMapping("/updateQuantity/{id}")
+    public ResponseEntity<Fridge> updateItemQuantity(@PathVariable Long id,
+            @RequestBody Map<String, Integer> quantityMap) {
+        Integer quantity = quantityMap.get("quantity");
+        if (id == null || quantity == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        Fridge updatedFridge = fridgeService.updateItemQuantity(id, quantity);
+        return ResponseEntity.ok(updatedFridge);
+    }
+
+    @CrossOrigin
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteItem(@PathVariable Long id) {
+        try {
+            fridgeService.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
