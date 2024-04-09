@@ -5,6 +5,7 @@ import com.end.fridge.repository.FridgeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,6 +31,10 @@ public class FridgeService {
             // Create new records
             return fridgeRepository.save(fridge);
         }
+    }
+
+    public Iterable<Fridge> saveAll(List<Fridge> fridges) {
+        return fridgeRepository.saveAll(fridges);
     }
 
     public Fridge updateItemQuantity(Long id, Integer quantity) {

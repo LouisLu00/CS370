@@ -1,31 +1,41 @@
 package com.end.fridge.service;
 
-import com.end.fridge.domain.User;
-import com.end.fridge.repository.UserRepository;
+import com.end.fridge.domain.Ingredient;
+import com.end.fridge.repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class UserService {
-
+public class IngredientService {
     @Autowired
-    private UserRepository userRepository;
+    private IngredientRepository ingredientRepository;
 
-    // return all users
-    public Iterable<User> list() {
-        return userRepository.findAll();
+    public Iterable<Ingredient> list() {
+        return ingredientRepository.findAll();
     }
 
-    // save a single user record
-    public User save(User user) {
-        return userRepository.save(user);
+    public List<Ingredient> findByNameContaining(String keyword) {
+        return ingredientRepository.findByNameContainingRightWithLogic(keyword);
     }
 
-    // save multiple user records
-    public void save(List<User> users) {
-        userRepository.saveAll(users);
+    public Optional<Ingredient> findByName(String name) {
+        return ingredientRepository.findByName(name);
     }
 
+    public List<Ingredient> searchIngredients(List<String> names) {
+        List<Ingredient> resultList = new ArrayList<>();
+
+        for (String name : names) {
+            List<Ingredient> ingredients = ingredientRepository.findByNameContainingRightWithLogic(name);
+            if (!ingredients.isEmpty()) {
+                resultList.add(ingredients.get(0));
+            }
+        }
+
+        return resultList;
+    }
 }

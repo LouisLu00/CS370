@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -27,6 +28,12 @@ public class FridgeController {
     public ResponseEntity<?> save(@RequestBody @Valid Fridge fridge) {
         Fridge savedFridge = fridgeService.save(fridge);
         return ResponseEntity.ok(savedFridge);
+    }
+
+    @PostMapping("/saveAll")
+    public ResponseEntity<?> saveAll(@RequestBody List<@Valid Fridge> fridges) {
+        Iterable<Fridge> savedFridges = fridgeService.saveAll(fridges);
+        return ResponseEntity.ok(savedFridges);
     }
 
     @CrossOrigin
