@@ -1,6 +1,7 @@
 <script setup>
   import { useRouter } from 'vue-router';
   import { ref, reactive, onMounted } from 'vue';
+  import TopButton from '../../components/top_button.vue';
 
   const props = defineProps({});
   const router = useRouter();
@@ -18,6 +19,9 @@
 
 <template>
   <div class="flex-col page">
+    <div>
+      <TopButton/>
+    </div>
     <span class="self-start text">Recipe creator</span>
     <div class="self-stretch section">
       <el-carousel height="11.5rem" motion-blur>
