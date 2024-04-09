@@ -1,112 +1,95 @@
 <script setup>
-import { useRoute, useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
-import { ElLoading, ElMessageBox } from 'element-plus';
+import { ElMessage } from 'element-plus';
 import TopButton from '../../components/top_button.vue';
 import GridIngredient from '../../components/grid_ingredient.vue'
+import { useRoute, useRouter } from 'vue-router';
+import { carouselItemProps } from 'element-plus';
 
+let labels = [];
 const route = useRoute();
 const router = useRouter();
-
-const email = ref('');
-const password = ref('');
 const items = ref([]);
 
 onMounted(async () => {
-  email.value = route.query.email || '';
-  password.value = route.query.password || '';
-  await fetchData();
+  const cameraResult = sessionStorage.getItem('camera_result');
+  if (cameraResult && cameraResult!='[object Object]') {
+    items.value = JSON.parse(cameraResult);
+    console.log("cameraResult:", items.value);
+    sessionStorage.removeItem('camera_result');
+  } else {
+    labels = route.query.labels || [];
+    fetchData(labels);
+  }
 });
 
-const fetchData = async () => {
+const fetchData = async (labels) => {
   try {
-    const response = await fetch('http://localhost:5050/fridge/list');
+    const response = await fetch('http://localhost:5050/ingredient/search_list', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(labels)
+    });
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
-    items.value = data;
+    items.value = wrapData(data);
+    console.log('items.value:', items.value);
   } catch (error) {
     console.error('Error fetching data:', error);
   }
 };
 
-const navigateToManualPage = () => {
-  localStorage.setItem('edit_type', 'manual');
-  router.push({
-    path: '/edit_ingredient'
+const upload = (labels) => {
+  items.value.forEach(item => {
+    item.uid = 1234;
+    item.iid = item.ingredient.id;
+    item.quantity = item.quantity || 1;
+    item.expirationDate = item.expirationDate || "2024-04-29T16:00:00.000Z";
+  });
+  // console.log(items.value);
+  fetch('http://localhost:5050/fridge/saveAll', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(items.value)
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Items saved:', data);
+    ElMessage.success('Ingredients saved successfully');
+    router.push({ name: 'index' });
+  })
+  .catch(error => {
+    console.error('Error saving items:', error);
+    ElMessage.error('Failed to save Ingredients');
   });
 };
 
-const navigateToCreator = () => {
-  router.push({
-    path: '/creator_recipe'
-  });
-};
-
-const fileInput = ref(null);
-
-const navigateToCameraPage = () => {
-  fileInput.value.click();
-};
-
-const handleFileChange = async (event) => {
-  const file = event.target.files[0];
-  if (file) {
-    try {
-      const loadingInstance = ElLoading.service({
-        fullscreen: true
-      });
-
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const response = await fetch('http://localhost:5050/rekognition/detectLabels', {
-        method: 'POST',
-        body: formData
-      });
-
-      loadingInstance.close();
-
-      if (response.ok) {
-        const labels = await response.json();
-        router.push({ path: '/camera_result', query: { labels: labels } });
-        // showLabelsMessageBox(labels);
-      } else {
-        console.error('Failed to detect labels:', response.statusText);
-        ElMessageBox.alert('Recognition failed. Please try again.', 'Message', {
-          confirmButtonText: 'OK',
-          type: 'error'
-        });
-      }
-    } catch (error) {
-      console.error('Error processing image:', error);
-      ElMessageBox.alert('Error processing image. Please try again.', 'Message', {
-        confirmButtonText: 'OK',
-        type: 'error'
-      });
-    }
-  }
-};
-
-const showLabelsMessageBox = (labels) => {
-  console.log(labels)
-  if (labels.length <= 20) {
-    ElMessageBox.alert('Recognition result: ' + labels.join('</br>'), 'Message', {
-      confirmButtonText: 'OK',
-      dangerouslyUseHTMLString: true,
-      type: 'success'
+const wrapData = (data) => {
+    return data.map(item => {
+        return { ingredient: item };
     });
-  } else {
-    ElMessageBox.alert('Too many labels. Please choose another way to view.', 'Message', {
-      confirmButtonText: 'OK',
-      type: 'info'
-    });
-  }
 };
 
 const handleDelete = (index) => {
- console.log(index);
+  items.value.splice(index, 1)
+};
+
+const handleEdit = (index) => {
+  const itemToEdit = items.value[index];
+  // console.log(itemToEdit);
+  // console.log(index);
+  localStorage.setItem('edit_type', 'camera');
+  sessionStorage.setItem('camera_result', JSON.stringify(items.value));
+  router.push({
+    name: 'edit_ingredient',
+      query: { index }
+    })
 };
 
 </script>
@@ -116,21 +99,9 @@ const handleDelete = (index) => {
     <div>
       <TopButton/>
     </div>
-    <span class="self-start text">{{ email }}'s refrigerator</span>
-    <div class="flex-row self-stretch group">
-      <div class="flex-col justify-start items-center text-wrapper"><span class="font text_2">Fridge</span></div>
-      <div class="flex-col justify-start text-wrapper_2 ml-11"><span class="font text_3">Recommendation</span></div>
-      <div class="flex-col justify-start text-wrapper_2 ml-11" @click="navigateToCreator"><span class="font text_3">Creator</span></div>
-    </div>
-    <GridIngredient :items="items" :onDelete="handleDelete" />
-    <div class="flex-row justify-between items-center self-center section_2" style="width: 11rem;">
-      <div class="flex-col justify-start items-center button" @click="navigateToManualPage"><span class="font_4">Manual</span></div>
-      <div class="flex-col justify-end items-center button" @click="navigateToCameraPage">
-        <span class="font_4">Camera</span>
-        <input type="file" ref="fileInput" style="display: none" @change="handleFileChange">
-      </div>
-      <!-- <div class="flex-col justify-start items-center text-wrapper_3"><span class="text_4">+</span>
-      </div> -->
+    <GridIngredient :items="items" :onDelete="handleDelete" :onEdit="handleEdit" />
+    <div class="flex-row justify-center items-center self-center section_2" style="width: 11rem;">
+      <div class="flex-col justify-start items-center button" @click="upload"><span class="font_4">Upload</span></div>
     </div>
   </div>
 </template>

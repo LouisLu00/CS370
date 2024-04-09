@@ -101,6 +101,7 @@
 
   .self-stretch {
     align-self: stretch;
+    position: relative;
   }
 
   .flex-1 {

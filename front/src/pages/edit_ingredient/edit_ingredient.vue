@@ -1,99 +1,159 @@
 <script setup>
-  import { useRouter } from 'vue-router';
-  import { reactive, onMounted, ref } from 'vue';
+  import { ElMessage, ElMessageBox } from 'element-plus';
+  import { useRoute, useRouter } from 'vue-router';
+  import { reactive, onMounted, ref, computed } from 'vue';
   import { UploadFilled } from '@element-plus/icons-vue'
+  import TopButton from '../../components/top_button.vue';
 
   const props = defineProps({});
 
-  const data = reactive({
-    v_model: '',
-    v_model_1: '',
-    v_model_2: '',
-    v_model_3: '',
-  });
-
-  const value = ref('')
   const expiry_date = ref('')
+  const keyword = ref('');
+  const promptText = ref('');
 
-  const options = [
-    {
-      value: 'Fruit',
-      label: 'Fruit',
-    },
-    {
-      value: 'Meat',
-      label: 'Meat',
-    },
-    {
-      value: 'Vegetable',
-      label: 'Vegetable',
-    },
-    {
-      value: 'Other',
-      label: 'Other',
-    },
-  ]
-
+  const route = useRoute();
   const router = useRouter();
   const num = ref(1)
-  const handleChange = () => {
-    console.log(value)
+  
+  const index = ref('')
+  const items = ref([]);
+  let type = ref('manual')
+  onMounted(() => {
+    type = localStorage.getItem('edit_type')
+    console.log(type)
+    index.value = route.query.index || '';
+    if (index && index.value!='') {
+      let cameraResult = sessionStorage.getItem('camera_result');
+      items.value = JSON.parse(cameraResult);
+      // console.log(index.value);
+      // console.log(items.value);
+      // console.log(items.value[index.value]);
+      keyword.value = items.value[index.value].ingredient.name;
+    }
+  });
+
+  const handleChange = (value) => {
+    num.value = value
+    console.log(num.value)
   }
 
-  const click_upload = () => {
-    alert('Success!');
-  }
+  const click_upload = async () => {
+    try {
+      if (type == 'camera') {
+        items.value[index.value].quantity = num.value;
+        items.value[index.value].expirationDate = formatDate(expiry_date.value);
+        sessionStorage.setItem('camera_result', JSON.stringify(items.value));
+        router.push('/camera_result');
+        // console.log(items.value)
+      } else if (type == 'edit') {
+
+      } else if (type == 'manual') {
+        const response = await fetch(`http://localhost:5050/ingredient/${keyword.value}`);
+        if (response.status === 200) {
+          const data = await response.json();
+          const id = data.id;
+          const requestData = {
+            uid: 12345,
+            quantity: num.value,
+            iid: id,
+            expirationDate: formatDate(expiry_date.value)
+          };
+          await sendRequest(requestData);
+        } else if (response.status === 404) {
+          const requestData = {
+            uid: 12345,
+            quantity: num.value,
+            otherName: keyword.value,
+            expirationDate: formatDate(expiry_date.value)
+          };
+          await sendRequest(requestData);
+        } else {
+          console.error('Unexpected response:', response.status);
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const handleInput = async () => {
+    if (keyword.value.length > 1) {
+      try {
+        const response = await fetch(`http://localhost:5050/ingredient/search/${keyword.value}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        if (data.length > 0) {
+          const firstItem = data[0];
+          promptText.value = `${firstItem.name}`;
+        } else {
+          promptText.value = 'X';
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        promptText.value = 'Error fetching data';
+      }
+    } else {
+      promptText.value = 'X';
+    }
+  };
+
+  const sendRequest = async (requestData) => {
+    try {
+      const response = await fetch('http://localhost:5050/fridge/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+      });
+      if (response.ok) {
+        ElMessageBox.alert('Success!', 'Tips', {
+          type: 'success'
+        }).then(() => {
+          router.push({ path: '/index' });
+        });
+      } else {
+        console.error('Request failed:', response.status);
+        ElMessage.error('Request failed, please try again later');
+      }
+    } catch (error) {
+      console.error('Error sending request:', error);
+      ElMessage.error('Request failed, please try again later');
+    }
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString();
+  };
 </script>
 
 <template>
   <div class="flex-col page">
+    <div>
+      <TopButton/>
+    </div>
     <span class="font text">Please provide Ingredient details :)</span>
     <div class="flex-col group">
       <div class="flex-col">
-        <span class="self-start font_2">Name</span>
-        <el-input class="input mt-7 elinput" v-model="data.v_model"></el-input>
-      </div>
-      <div class="flex-col mt-15">
-        <span class="self-start font_2">Image</span>
-        <!-- <el-input class="input mt-7 elinput" v-model="data.v_model"></el-input> -->
-        <el-upload
-          class="upload-demo mt-7"
-          drag
-          action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-          multiple
-        >
-          <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-          <div class="el-upload__text">
-            Drop file here or <em>click to upload</em>
-          </div>
-          <template #tip>
-            <div class="el-upload__tip">
-              jpg/png files with a size less than 500kb
-            </div>
-          </template>
-        </el-upload>
-      </div>
-      <div class="flex-col mt-15">
-        <span class="self-start font_2">Category</span>
-        <!-- <el-input class="input mt-7 elinput_1" v-model="data.v_model_1"></el-input> -->
-        <el-select v-model="value" placeholder="Select" style="width: 240px" class="mt-7">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
+        <div class="flex-row">
+          <span class="self-start font_2">Name</span>
+          <div style="margin: auto;"></div>
+          <span class="mt-2 font_3">Prompt: {{ promptText }}</span>
+        </div>
+        <el-input class="input mt-7 elinput" v-model="keyword" @input="handleInput"></el-input>
       </div>
       <div class="flex-col mt-15">
         <span class="self-start font_2">Quantity</span>
         <!-- <el-input class="input mt-7 elinput_2" v-model="data.v_model_2"></el-input> -->
-        <el-input-number class="mt-7" v-model="num" :min="1" :max="10" @change="handleChange" />
+        <el-input-number class="mt-7" v-model="num" :min="1" :max="9999" @change="handleChange" />
       </div>
       <div class="flex-col mt-15">
         <span class="self-start font_2">Expiry Date</span>
         <!-- <el-input class="input mt-7 elinput_3" v-model="data.v_model_3"></el-input> -->
-        <div class="block">
+        <div class="block mt-7">
           <el-date-picker
             v-model="expiry_date"
             type="date"
@@ -104,8 +164,11 @@
       </div>
     </div>
     <div class="flex-col group_2">
-      <div class="flex-col justify-start items-center button" @click="click_upload"><span class="font">Upload</span></div>
-      <div class="flex-col justify-start items-center text-wrapper_2 mt-9"><span class="font">Delete</span></div>
+      <div class="flex-col justify-start items-center button" @click="click_upload">
+        <span class="font" v-if="type == 'manual'">Upload</span>
+        <span class="font" v-else>Edit</span>
+      </div>
+      <!-- <div class="flex-col justify-start items-center text-wrapper_2 mt-9"><span class="font">Delete</span></div> -->
     </div>
   </div>
 </template>
@@ -148,6 +211,13 @@
     line-height: 1rem;
     font-weight: 700;
     color: rgb(0, 0, 0);
+  }
+  .font_3 {
+    font-size: 0.7rem;
+    font-family: 'Heiti SC';
+    line-height: 1rem;
+    font-weight: 700;
+    color: rgb(106, 102, 102);
   }
   .input {
     align-self: stretch;
