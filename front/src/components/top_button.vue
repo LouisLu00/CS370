@@ -8,7 +8,8 @@ const goToMainPage = () => {
   router.push('/index');
 };
 const goToBeforePage = () => {
-  router.go(-1);
+  // router.go(-1);
+  router.back();
 };
 </script>
 <template>

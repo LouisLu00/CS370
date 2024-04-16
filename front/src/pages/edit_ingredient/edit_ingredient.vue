@@ -17,18 +17,26 @@
   
   const index = ref('')
   const items = ref([]);
+  let item = ref('')
   let type = ref('manual')
   onMounted(() => {
     type = localStorage.getItem('edit_type')
     console.log(type)
     index.value = route.query.index || '';
-    if (index && index.value!='') {
+    if (type == 'camera' && index && index.value!='') {
       let cameraResult = sessionStorage.getItem('camera_result');
       items.value = JSON.parse(cameraResult);
       // console.log(index.value);
       // console.log(items.value);
       // console.log(items.value[index.value]);
       keyword.value = items.value[index.value].ingredient.name;
+    } else if (type == 'edit') {
+      let ingredient = sessionStorage.getItem('ingredient');
+      item.value = JSON.parse(ingredient);
+      console.log(item.value);
+      keyword.value = item.value.ingredient.name;
+      expiry_date.value = item.value.expirationDate;
+      num.value = item.value.quantity;
     }
   });
 
@@ -46,14 +54,38 @@
         router.push('/camera_result');
         // console.log(items.value)
       } else if (type == 'edit') {
-
+        try {
+          item.value.ingredient.name = keyword.value;
+          item.value.expirationDate = expiry_date.value;
+          item.value.quantity = num.value;
+          const response = await fetch('http://localhost:5050/fridge/update', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(item.value)
+          });
+          if (response.ok) {
+            ElMessageBox.alert('Success!', 'Tips', {
+              type: 'success'
+            }).then(() => {
+              router.push({ path: '/index' });
+            });
+          } else {
+            console.error('Request failed:', response.status);
+            ElMessage.error('Request failed, please try again later');
+          }
+        } catch (error) {
+          console.error('Error sending request:', error);
+          ElMessage.error('Request failed, please try again later');
+        }
       } else if (type == 'manual') {
         const response = await fetch(`http://localhost:5050/ingredient/${keyword.value}`);
         if (response.status === 200) {
           const data = await response.json();
           const id = data.id;
           const requestData = {
-            uid: 12345,
+            uid: 1234,
             quantity: num.value,
             iid: id,
             expirationDate: formatDate(expiry_date.value)
@@ -143,7 +175,7 @@
           <div style="margin: auto;"></div>
           <span class="mt-2 font_3">Prompt: {{ promptText }}</span>
         </div>
-        <el-input class="input mt-7 elinput" v-model="keyword" @input="handleInput"></el-input>
+        <el-input class="input mt-7 elinput" v-model="keyword" @input="handleInput" :disabled="type === 'edit'"></el-input>
       </div>
       <div class="flex-col mt-15">
         <span class="self-start font_2">Quantity</span>

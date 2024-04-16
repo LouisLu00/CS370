@@ -10,11 +10,25 @@
           'https://th.bing.com/th/id/OIP.FsUdSSNWDjUM0bAYeHMPAwHaGO?w=186&h=157&c=7&r=0&o=5&cb=11&dpr=2&pid=1.7',
           'https://th.bing.com/th/id/OIP.Vg9r-DAlb6FFY5DzS6MMcAHaFp?w=186&h=142&c=7&r=0&o=5&cb=11&dpr=2&pid=1.7'
         ]
-  const num_1 = ref('');
-  const num_2 = ref('');
-  const num_3 = ref('');
-  const num_4 = ref('');
-  const num_5 = ref('');
+
+  const group = ref([]);
+  const num = ref([]);
+
+  onMounted(async () => {
+    try {
+      let uid = 1234
+      const response = await fetch(`http://localhost:5050/fridge/list/${uid}`);
+      if (response.ok) {
+        const data = await response.json();
+        group.value = data;
+        num.value = new Array(data.length).fill(1);
+      } else {
+        throw new Error('Failure to obtain data');
+      }
+    } catch (error) {
+      console.error('Failure to obtain data:', error);
+    }
+  });
 </script>
 
 <template>
@@ -30,31 +44,16 @@
         </el-carousel-item>
       </el-carousel>
     </div>
-    <div class="flex-col self-stretch group">
+    <div v-for="(item, index) in group" :key="index" class="self-stretch group">
       <div class="flex-row input view">
-        <span class="font text_2">Fish</span>
+        <span class="font text_2">{{ item.ingredient.name }}</span>
         <div style="margin: auto;"></div>
-        <el-input-number style="align-items: center; margin-right: 0.3rem;" v-model="num_1" :min="1" :max="10"/>
-      </div>
-      <div class="flex-row input text-wrapper_2 mt-7">
-        <span class="font text_2">Strawberry</span>
-        <div style="margin: auto;"></div>
-        <el-input-number style="align-items: center; margin-right: 0.3rem;" v-model="num_2" :min="1" :max="10"/>
-      </div>
-      <div class="flex-row justify-start input text-wrapper_1 mt-7">
-        <span class="font text_2">Potato</span>
-        <div style="margin: auto;"></div>
-        <el-input-number style="align-items: center; margin-right: 0.3rem;" v-model="num_3" :min="1" :max="10"/>
-      </div>
-      <div class="flex-row justify-start input text-wrapper_3 mt-7">
-        <span class="font text_2">Drumstick</span>
-        <div style="margin: auto;"></div>
-        <el-input-number style="align-items: center; margin-right: 0.3rem;" v-model="num_4" :min="1" :max="10"/>
-      </div>
-      <div class="flex-row justify-start input text-wrapper_5 mt-7">
-        <span class="font text_2">Milk</span>
-        <div style="margin: auto;"></div>
-        <el-input-number style="align-items: center; margin-right: 0.3rem;" v-model="num_5" :min="1" :max="10"/>
+        <el-input-number
+          style="width: 15rem; align-items: center; margin-right: 0.3rem;"
+          v-model="num[index]"
+          :min="0"
+          :max="item.quantity"
+        />
       </div>
     </div>
     <div class="flex-col justify-start items-center self-center text-wrapper_4"><span class="text_3">Find</span></div>

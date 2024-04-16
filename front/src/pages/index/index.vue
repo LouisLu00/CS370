@@ -1,7 +1,7 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
-import { ElLoading, ElMessageBox } from 'element-plus';
+import { ElLoading, ElMessageBox, ElMessage } from 'element-plus';
 import TopButton from '../../components/top_button.vue';
 import GridIngredient from '../../components/grid_ingredient.vue'
 
@@ -20,7 +20,8 @@ onMounted(async () => {
 
 const fetchData = async () => {
   try {
-    const response = await fetch('http://localhost:5050/fridge/list');
+    let uid = 1234
+    const response = await fetch(`http://localhost:5050/fridge/list/${uid}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -35,6 +36,14 @@ const navigateToManualPage = () => {
   localStorage.setItem('edit_type', 'manual');
   router.push({
     path: '/edit_ingredient'
+  });
+};
+
+const navigateToRecommendation = () => {
+  // console.log(items);
+  router.push({
+    path: '/recommend',
+    query: {fridge: JSON.stringify(items.value)}
   });
 };
 
@@ -105,8 +114,37 @@ const showLabelsMessageBox = (labels) => {
   }
 };
 
-const handleDelete = (index) => {
- console.log(index);
+const handleDelete = async (index) => {
+  console.log(items.value[index]);
+  try {
+    const id = items.value[index].id;
+    const response = await fetch(`http://localhost:5050/fridge/${id}`, {
+      method: 'DELETE',
+    });
+    if (response.ok) {
+      const data = await response.text();
+      ElMessage.success(data);
+      items.value.splice(index, 1);
+    } else {
+      throw new Error('Failed to delete');
+    }
+  } catch (error) {
+    console.error('Failed to delete:', error);
+    ElMessage.error('Failed to delete');
+  }
+};
+
+const handleEdit = (index) => {
+  const itemToEdit = items.value[index];
+  // console.log(itemToEdit);
+  // console.log(index);
+  localStorage.setItem('edit_type', 'edit');
+  sessionStorage.setItem('ingredient', JSON.stringify(itemToEdit));
+
+  router.push({
+    name: 'edit_ingredient',
+      query: { index }
+    })
 };
 
 </script>
@@ -119,10 +157,10 @@ const handleDelete = (index) => {
     <span class="self-start text">{{ email }}'s refrigerator</span>
     <div class="flex-row self-stretch group">
       <div class="flex-col justify-start items-center text-wrapper"><span class="font text_2">Fridge</span></div>
-      <div class="flex-col justify-start text-wrapper_2 ml-11"><span class="font text_3">Recommendation</span></div>
+      <div class="flex-col justify-start text-wrapper_2 ml-11" @click="navigateToRecommendation"><span class="font text_3">Recommendation</span></div>
       <div class="flex-col justify-start text-wrapper_2 ml-11" @click="navigateToCreator"><span class="font text_3">Creator</span></div>
     </div>
-    <GridIngredient :items="items" :onDelete="handleDelete" />
+    <GridIngredient :items="items" :onDelete="handleDelete" :onEdit="handleEdit" />
     <div class="flex-row justify-between items-center self-center section_2" style="width: 11rem;">
       <div class="flex-col justify-start items-center button" @click="navigateToManualPage"><span class="font_4">Manual</span></div>
       <div class="flex-col justify-end items-center button" @click="navigateToCameraPage">

@@ -58,16 +58,16 @@ const getItemSubCategory = (item) => {
 </script>
 <template>
 <div class="grid">
-    <div v-for="(item, index) in items" :key="index" class="flex-col grid-item" @click="handleEdit(index)">
+    <div v-for="(item, index) in items" :key="index" class="flex-col grid-item">
         <div class="self-stretch section">
             <div class="overlay" @click="handleDelete(index)"></div>
-            <img class="image" :src="getImageSource(item)" :alt="getImageAlt(item)">
+            <img class="image" :src="getImageSource(item)" :alt="getImageAlt(item)" @click="handleEdit(index)">
         </div>
-        <div class="mt-10 flex-row justify-between items-baseline self-stretch">
+        <div class="mt-10 flex-row justify-between items-baseline self-stretch" @click="handleEdit(index)">
             <span class="font">{{ getItemName(item) }}</span>
             <span class="font_2">{{ getItemSubCategory(item) }}</span>
         </div>
-        <div class="mt-10 flex-row justify-between items-baseline self-stretch">
+        <div class="mt-10 flex-row justify-between items-baseline self-stretch" @click="handleEdit(index)">
             <span class="font_3">Expires in {{ getExpirationDays(item.expirationDate) }} days</span>
             <span class="font_3">{{item.quantity}}</span>
         </div>

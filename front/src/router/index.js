@@ -4,6 +4,8 @@ import Index from '../pages/index/index.vue';
 import Edit_Ingredient from '../pages/edit_ingredient/edit_ingredient.vue';
 import Create_Recipe from '../pages/creator_recipe/creator_recipe.vue'
 import Camera_Result from '../pages/camera_result/camera_result.vue'
+import Recipe_info from '../pages/recipe_info/recipe_info.vue'
+import Recommend from '../pages/recommend/recommend.vue'
 
 const routes = [
   {
@@ -30,6 +32,16 @@ const routes = [
     path: '/camera_result',
     name: 'camera_result',
     component: Camera_Result,
+  },
+  {
+    path: '/recipe_info',
+    name: 'recipe_info',
+    component: Recipe_info,
+  },
+  {
+    path: '/recommend',
+    name: 'recommend',
+    component: Recommend,
   },
 ];
 
