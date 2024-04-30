@@ -50,26 +50,58 @@ Follow these steps to set up and run the frontend of the application:
 ## Getting Started
 
 ### Creating an Account
+First, sign up for an account. Having an account will help you have a virtual refrigerator of your own and enjoy personalized recipe service.
+
 <img width="1511" alt="Screenshot 2024-04-30 at 9 37 52 AM" src="https://github.com/LouisLu00/CS370/assets/84982166/c883da5d-5033-48cb-839f-39184d6ab005">
 
-
-
 ### Logging in
+Once you have an account, just log in!
+
 <img width="1512" alt="Screenshot 2024-04-30 at 9 36 06 AM" src="https://github.com/LouisLu00/CS370/assets/84982166/3cf2e8c8-2669-4c66-ba8f-629a7bb551d3">
 
 
 ## Features
 
 ### Fridge
+This is your virtual refrigerator! Here you can store your ingredients, keep track of their quantities and shelf life. Our refrigerator will alert you when an ingredient is about to expire to avoid waste. Also, our fridge has different filters to make it easy for you to manage your ingredients. You can choose to add ingredients to your virtual fridge by manually entering ingredients, uploading pictures of ingredients, or snapshotting them.
 
+#### Manually upload
+![99bc8cd8cf9eeb2e75a7de0cb5fcf9ec](https://github.com/LouisLu00/CS370/assets/84982166/967aafca-6e4a-4b0a-a709-e9f98e3aabd5)
+Here you can add ingredients by inputting their names, also can edit quantity and expiration date.
+
+We will introduce the image-uploading/snapshot methods in the later section.
+
+#### Your Fridge
+Right now, you have your virtual fridge that records all of your ingredients!
+![b2af32ec3f847c8c2427e3774039a7ca](https://github.com/LouisLu00/CS370/assets/84982166/47ec44cc-03dd-496a-9258-9becfdd0ecc7)
 
 ### Automatic Recipe Generator
+Based on the ingredients in your fridge, we will generate recipes for you. Our recipes include a picture of the dish, the ingredients used, the time to make it, and the steps to make it. You can 'like' or 'dislike' the current recipe, which helps the system to personalize recommendations based on your preferences.
+
+![438a157497d9bb92301967f58f202cfa](https://github.com/LouisLu00/CS370/assets/84982166/cdda35fb-ed7c-4e50-959c-158fa690c78d)
+
+![5469375cd1c3f102de40d8acd4ed15ee](https://github.com/LouisLu00/CS370/assets/84982166/36073e69-0718-4720-8a8a-a6d1fd2d57d0)
+
 
 
 ### Personalized Recipe Recommendation
+We will recommend personalized recipes for you based on your history of choices as well as preferences.
+
+<img width="1512" alt="ec23b9103acd8aa372df935ad691f55b" src="https://github.com/LouisLu00/CS370/assets/84982166/9bbe3784-d9e4-40a4-b5ae-c868feed719e">
 
 
 ### Image Recognition
+
+#### Image Uploading
+The first way: you can choose to upload a picture of your ingredients and we will recognize it automatically.
+
+<img width="1512" alt="746a58030892153cbc10bd987c1431ab" src="https://github.com/LouisLu00/CS370/assets/84982166/31012728-a015-46a3-972e-f103090b455a">
+
+<img width="1510" alt="fa829488eaf238d245d5e919c21a87d0" src="https://github.com/LouisLu00/CS370/assets/84982166/6098487b-32cd-41fa-9f60-3b5639326c2c">
+
+#### Snapshot
+
+
 
 
 
