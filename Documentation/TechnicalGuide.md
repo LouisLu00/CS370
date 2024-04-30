@@ -22,7 +22,7 @@ Our project's frontend is built with Vue 3.2.0.It interacts with the backend ser
 - **Recommend**: Provides recipe recommendations.
 
 
-## Project Structure
+### Project Structure
 
 - **dist**: Contains compiled assets and the main HTML file for deployment.
   - **assets**: Compiled CSS and JavaScript files.
