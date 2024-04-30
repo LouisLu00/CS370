@@ -23,7 +23,7 @@ Our project goal is to create a user-friendly website that helps users organize 
 - Tiantian Meng (tiantian.meng@emory.edu)
 
 
-# We are very grateful to Professor Jeffrey Epstein for his guidance and assistance with our project this semester!
+# We are very grateful to Professor Jeffrey Epstein for his guidance and support of our project this semester!
 
 
 
