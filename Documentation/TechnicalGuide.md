@@ -3,7 +3,37 @@
 
 
 ## Front-end 
-Our project's frontend is built with modern progressive JavaScript framework to provide a dynamic and responsive user interface. It interacts with the backend services to manage user sessions, ingredient inventories, and recipe suggestions. We manages user sessions using browser storage and supports user interactions like logging out, ingredient sorting, and navigation to different parts of the application such as recipe creation and ingredient editing.
+Our project's frontend is built with Vue 3.2.0.It interacts with the backend services to manage user sessions, ingredient inventories, and recipe suggestions. We manages user sessions using browser storage and supports user interactions like logging out, ingredient sorting, and navigation to different parts of the application such as recipe creation and ingredient editing.
+
+### Fridge Module
+- Allows users to store ingredients in the fridge.
+- Supports three upload methods: manual upload, image analysis upload, and photo upload.
+- Manages ingredient expiration dates and other related information.
+### Recommendation Module
+- Generates recipe recommendations based on the ingredients stored in the fridge.
+
+### Pages
+- **Camera Result**: Displays results from the camera.
+- **Creator Recipe**: Allows users to create recipes.
+- **Edit Ingredient**: Allows users to edit ingredients.
+- **Index**: Main index page.
+- **Login**: Login page.
+- **Recipe Info**: Displays detailed information about a recipe.
+- **Recommend**: Provides recipe recommendations.
+
+
+## Project Structure
+
+- **dist**: Contains compiled assets and the main HTML file for deployment.
+  - **assets**: Compiled CSS and JavaScript files.
+- **public**: Static assets like icons.
+- **src**: Source code directory.
+  - **components**: Contains Vue components.
+  - **pages**: Contains Vue components for different pages.
+  - **router**: Vue router configuration.
+  - **customFetch.js**: Custom fetch function for API requests.
+  - **main.js**: Entry point of the application.
+
 
 Key functionalities are implemented through Vue components and services:
 
