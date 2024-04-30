@@ -78,7 +78,7 @@ Right now, you have your virtual fridge that records all of your ingredients!
 ### Automatic Recipe Generator
 Based on the ingredients in your fridge, we will generate recipes for you. Our recipes include a picture of the dish, the ingredients used, the time to make it, and the steps to make it. You can 'like' or 'dislike' the current recipe, which helps the system to personalize recommendations based on your preferences.
 
-![438a157497d9bb92301967f58f202cfa](https://github.com/LouisLu00/CS370/assets/84982166/cdda35fb-ed7c-4e50-959c-158fa690c78d)
+<img width="1512" alt="ec23b9103acd8aa372df935ad691f55b" src="https://github.com/LouisLu00/CS370/assets/84982166/9bbe3784-d9e4-40a4-b5ae-c868feed719e">
 
 ![5469375cd1c3f102de40d8acd4ed15ee](https://github.com/LouisLu00/CS370/assets/84982166/36073e69-0718-4720-8a8a-a6d1fd2d57d0)
 
@@ -87,7 +87,7 @@ Based on the ingredients in your fridge, we will generate recipes for you. Our r
 ### Personalized Recipe Recommendation
 We will recommend personalized recipes for you based on your history of choices as well as preferences.
 
-<img width="1512" alt="ec23b9103acd8aa372df935ad691f55b" src="https://github.com/LouisLu00/CS370/assets/84982166/9bbe3784-d9e4-40a4-b5ae-c868feed719e">
+![438a157497d9bb92301967f58f202cfa](https://github.com/LouisLu00/CS370/assets/84982166/cdda35fb-ed7c-4e50-959c-158fa690c78d)
 
 
 ### Image Recognition
