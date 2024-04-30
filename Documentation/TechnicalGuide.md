@@ -12,16 +12,6 @@ Our project's frontend is built with Vue 3.2.0.It interacts with the backend ser
 ### Recommendation Module
 - Generates recipe recommendations based on the ingredients stored in the fridge.
 
-### Pages
-- **Camera Result**: Displays results from the camera.
-- **Creator Recipe**: Allows users to create recipes.
-- **Edit Ingredient**: Allows users to edit ingredients.
-- **Index**: Main index page.
-- **Login**: Login page.
-- **Recipe Info**: Displays detailed information about a recipe.
-- **Recommend**: Provides recipe recommendations.
-
-
 ### Project Structure
 
 - **dist**: Contains compiled assets and the main HTML file for deployment.
