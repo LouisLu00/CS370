@@ -1,5 +1,21 @@
 ## Front-end 
+Our project's frontend is built with modern progressive JavaScript framework to provide a dynamic and responsive user interface. It interacts with the backend services to manage user sessions, ingredient inventories, and recipe suggestions. We manages user sessions using browser storage and supports user interactions like logging out, ingredient sorting, and navigation to different parts of the application such as recipe creation and ingredient editing.
 
+Key functionalities are implemented through Vue components and services:
+
+- `front/src`: Frontend Java Code
+  - `front/src/components/`: Reusable Vue components used across different parts of the application: 
+    - `front/src/components/grid_ingredient.vue`: Displays ingredients in a grid layout on various pages
+    - `front/src/components/top_button.vue`: Provides a consistently styled button used for primary actions across the site
+  - `front/src/pages`: Vue components that serve as entire pages, each corresponding to a route in the application:
+    - `front/src/pages/camera_result.vue`: Shows the results from the image recognition process.
+    - `front/src/pages/creator_recipe.vue`: Allows users to create recipes by entering details and uploading images.
+    - `front/src/pages/edit_ingredient.vue`: Provides functionality to edit details of an existing ingredient.
+    - `front/src/pages/index.vue`: Serves as the main landing page or dashboard of the application.
+    - `front/src/pages/login.vue`: Manages user authentication and login interface.
+    - `front/src/pages/recipe_info.vue`: Displays detailed information about a recipe.
+    - `front/src/pages/recommend.vue`: Recommends recipes based on the ingredients available in the user's fridge.
+  - `front/src/router`: Manages the routing for the application, defining paths to the different pages. 
 
 ## Back-end
 Our project uses the Java SpringBoot framework for the backend. All the backend codes are stored in: `./Backend` following the Spring Boot structure. The backend basically covers the core application functions using different objects. 
