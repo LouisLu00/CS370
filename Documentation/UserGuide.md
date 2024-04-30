@@ -73,21 +73,23 @@ We will introduce the image-uploading/snapshot methods in the later section.
 
 #### Your Fridge
 Right now, you have your virtual fridge that records all of your ingredients!
-![b2af32ec3f847c8c2427e3774039a7ca](https://github.com/LouisLu00/CS370/assets/84982166/47ec44cc-03dd-496a-9258-9becfdd0ecc7)
+
+<img width="1512" alt="Screenshot 2024-04-30 at 10 23 40 AM" src="https://github.com/LouisLu00/CS370/assets/84982166/8143b198-59db-42e3-ae16-3d04c8e463a7">
+
 
 ### Automatic Recipe Generator
 Based on the ingredients in your fridge, we will generate recipes for you. Our recipes include a picture of the dish, the ingredients used, the time to make it, and the steps to make it. You can 'like' or 'dislike' the current recipe, which helps the system to personalize recommendations based on your preferences.
 
-<img width="1512" alt="ec23b9103acd8aa372df935ad691f55b" src="https://github.com/LouisLu00/CS370/assets/84982166/9bbe3784-d9e4-40a4-b5ae-c868feed719e">
+<img width="1512" alt="Screenshot 2024-04-30 at 10 19 45 AM" src="https://github.com/LouisLu00/CS370/assets/84982166/70063f19-0672-4354-ab47-f773ad84881c">
 
-![5469375cd1c3f102de40d8acd4ed15ee](https://github.com/LouisLu00/CS370/assets/84982166/36073e69-0718-4720-8a8a-a6d1fd2d57d0)
-
+<img width="1512" alt="Screenshot 2024-04-30 at 10 20 02 AM" src="https://github.com/LouisLu00/CS370/assets/84982166/8605cfda-976e-4c9e-a468-6cea22271574">
 
 
 ### Personalized Recipe Recommendation
 We will recommend personalized recipes for you based on your history of choices as well as preferences.
 
-![438a157497d9bb92301967f58f202cfa](https://github.com/LouisLu00/CS370/assets/84982166/cdda35fb-ed7c-4e50-959c-158fa690c78d)
+![438a157497d9bb92301967f58f202cfa](https://github.com/LouisLu00/CS370/assets/84982166/519da38d-56cf-4cbd-9926-661ed57b6bf9)
+
 
 
 ### Image Recognition
@@ -100,6 +102,13 @@ The first way: you can choose to upload a picture of your ingredients and we wil
 <img width="1510" alt="fa829488eaf238d245d5e919c21a87d0" src="https://github.com/LouisLu00/CS370/assets/84982166/6098487b-32cd-41fa-9f60-3b5639326c2c">
 
 #### Snapshot
+You can also choose to use the snapshot option to allow us to recognize your ingredients.
+
+<img width="1511" alt="Screenshot 2024-04-30 at 10 27 58 AM" src="https://github.com/LouisLu00/CS370/assets/84982166/3c82cd43-7e2f-477e-af3d-eda0ca7218b9">
+
+<img width="1512" alt="Screenshot 2024-04-30 at 10 28 13 AM" src="https://github.com/LouisLu00/CS370/assets/84982166/9f72c460-3713-41d9-8fe4-1d8c9b51cdf6">
+
+
 
 
 
