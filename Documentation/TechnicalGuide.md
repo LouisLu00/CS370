@@ -1,3 +1,7 @@
+## Project Architecture
+<img width="935" alt="Screenshot 2024-04-30 at 12 20 03 PM" src="https://github.com/LouisLu00/CS370/assets/84982166/963acb05-8006-4616-b841-ba52246c2ecc">
+
+
 ## Front-end 
 Our project's frontend is built with modern progressive JavaScript framework to provide a dynamic and responsive user interface. It interacts with the backend services to manage user sessions, ingredient inventories, and recipe suggestions. We manages user sessions using browser storage and supports user interactions like logging out, ingredient sorting, and navigation to different parts of the application such as recipe creation and ingredient editing.
 
