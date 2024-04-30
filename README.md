@@ -1,10 +1,9 @@
 # Pantry Pal 
-https://web.frid93.com/ 
 
 Our project goal is to create a user-friendly website that helps users to organize food in their fridges. Also, recommend food recipes according to their previous choice.
 
 ## Access Links
-- Website:
+- Website: https://web.frid93.com/ 
 - Video: 
 
 ## Features
