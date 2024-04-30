@@ -45,3 +45,31 @@ Follow these steps to set up and run the frontend of the application:
    ```bash
    npm install       # Install project dependencies
    npm run dev       # Start the development server
+
+
+## Getting Started
+
+### Creating an Account
+<img width="1511" alt="Screenshot 2024-04-30 at 9 37 52 AM" src="https://github.com/LouisLu00/CS370/assets/84982166/c883da5d-5033-48cb-839f-39184d6ab005">
+
+
+
+### Logging in
+<img width="1512" alt="Screenshot 2024-04-30 at 9 36 06 AM" src="https://github.com/LouisLu00/CS370/assets/84982166/3cf2e8c8-2669-4c66-ba8f-629a7bb551d3">
+
+
+## Features
+
+### Fridge
+
+
+### Automatic Recipe Generator
+
+
+### Personalized Recipe Recommendation
+
+
+### Image Recognition
+
+
+
