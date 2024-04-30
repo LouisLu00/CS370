@@ -1,6 +1,8 @@
 # Pantry Pal 
 
-Our project goal is to create a user-friendly website that helps users to organize food in their fridges. Also, recommend food recipes according to their previous choice.
+Our project goal is to create a user-friendly website that helps users organize the food in their fridges and provide personalized recipe recommendations. Also, suggests meals based on user preferences and their previous choice. These features make meal planning easier and reduce food waste, offering a more efficient and enjoyable kitchen experience.
+
+### For detailed user guides and technical procedures, please check the documentation.
 
 ## Access Links
 - Website: https://web.frid93.com/ 
