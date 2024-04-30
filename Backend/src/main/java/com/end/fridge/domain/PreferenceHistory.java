@@ -1,6 +1,5 @@
 package com.end.fridge.domain;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,14 +7,19 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "preference_history")
+public class PreferenceHistory {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
-    private String name;
-    private String email;
-    private String password;
 
-    public User() {}
+    private Long uid; // User Id
+    private Long rid; // Recipe Id
+
+    private Long likeCount;
+    private Long dislikeCount;
+
+    public PreferenceHistory() {
+
+    }
 }

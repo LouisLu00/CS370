@@ -10,12 +10,10 @@ import java.util.Optional;
 
 public interface IngredientRepository extends CrudRepository<Ingredient, Long> {
     List<Ingredient> findByNameContaining(String keyword);
-
     Optional<Ingredient> findByName(String name);
 
     @Query("SELECT i FROM Ingredient i WHERE i.name LIKE :keyword%")
     List<Ingredient> findByNameContainingRight(@Param("keyword") String keyword);
-
     @Query("SELECT i FROM Ingredient i WHERE " +
             "(i.name LIKE :keyword%)" +
             " OR " +

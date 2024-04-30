@@ -13,10 +13,10 @@ public class Recipe {
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
     private String title;
-    private String readyIn;
+    private String readyIn; //Expected cooking time
     private String img;
     @Column(columnDefinition = "LONGTEXT")
-    private String directions;
+    private String directions; // A string representation of the cooking instruction
     @Column(columnDefinition = "LONGTEXT")
     private String ingredients;
 

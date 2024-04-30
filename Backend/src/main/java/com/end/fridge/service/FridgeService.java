@@ -17,18 +17,22 @@ public class FridgeService {
         return fridgeRepository.findAll();
     }
 
+    public Iterable<Fridge> listByUid(Long uid) {
+        return fridgeRepository.findByUid(uid);
+    }
+
     public Fridge save(Fridge fridge) {
-        // Check if there's existing ingreidents with same expiration date
+        // Check if there's already ingredients with same ingredients
         Optional<Fridge> existingFridge = fridgeRepository.findByUidAndIidOrOtherNameAndExpirationDate(
                 fridge.getUid(), fridge.getIid(), fridge.getOtherName(), fridge.getExpirationDate());
 
         if (existingFridge.isPresent()) {
-            // If exists, upate the value
+            // Update the quantity if there exists
             Fridge existingRecord = existingFridge.get();
             existingRecord.setQuantity(existingRecord.getQuantity() + fridge.getQuantity());
             return fridgeRepository.save(existingRecord);
         } else {
-            // Create new records
+            // If not, create a new one
             return fridgeRepository.save(fridge);
         }
     }
@@ -37,17 +41,11 @@ public class FridgeService {
         return fridgeRepository.saveAll(fridges);
     }
 
-    public Fridge updateItemQuantity(Long id, Integer quantity) {
-        Optional<Fridge> fridgeOptional = fridgeRepository.findById(id);
-        if (!fridgeOptional.isPresent()) {
-            throw new RuntimeException("Fridge item not found");
-        }
-        Fridge fridge = fridgeOptional.get();
-        fridge.setQuantity(quantity);
-        return fridgeRepository.save(fridge);
+    public void deleteById(Long id) {
+        fridgeRepository.deleteById(id);
     }
 
-    public void delete(Long id) {
-        fridgeRepository.deleteById(id);
+    public Fridge update(Fridge fridge) {
+        return fridgeRepository.save(fridge);
     }
 }
