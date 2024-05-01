@@ -6,7 +6,7 @@ Our project goal is to create a user-friendly website that helps users organize 
 
 ## Access Links
 - Website: https://web.frid93.com/ 
-- Video: 
+- Video: https://youtu.be/nOuNyO6ZcYI
 
 ## Features
 - Virtual Fridge: The virtual fridge allows you to store and organize your ingredients. You can add items through image recognition or manual input, and it records each ingredient's quantity and expiration date. It reminds you when your food is nearing its expiration, helping to reduce waste.
