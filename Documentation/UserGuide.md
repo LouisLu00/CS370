@@ -79,6 +79,7 @@ Right now, you have your virtual fridge that records all of your ingredients!
 
 ### Automatic Recipe Generator
 Based on the ingredients in your fridge, we will generate recipes for you. Our recipes include a picture of the dish, the ingredients used, the time to make it, and the steps to make it. You can 'like' or 'dislike' the current recipe, which helps the system to personalize recommendations based on your preferences.
+<img width="1512" alt="Screenshot 2024-04-30 at 9 44 04 PM" src="https://github.com/LouisLu00/CS370/assets/84982166/0e198f7a-9681-4ff6-baa6-2a9a4c2a90d6">
 
 <img width="1512" alt="Screenshot 2024-04-30 at 10 20 02 AM" src="https://github.com/LouisLu00/CS370/assets/84982166/8605cfda-976e-4c9e-a468-6cea22271574">
 
